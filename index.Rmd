@@ -1,0 +1,25 @@
+---
+title: "My awesome website"
+output: 
+  html_document:
+    toc: true
+    toc_float: true 
+---
+
+# This is Yuqing's awesome website
+
+This site is a webpage created by Yuqing leveraging the skills and techniques learned in [p8120 Data Science](https://p8105.com/) course in Columbia University Master of Public Health program. Further details about my educational background and access to my resume can be found on the [about](about.html) page. Thanks for visiting and I hope you like my website. 
+
+![](https://static.wikia.nocookie.net/onegaimymelo/images/4/44/3CA78107-55BE-4CD6-9E8B-7DF8309E1213.gif)
+
+## Github page
+Here is a [link](https://github.com/yuqingliu6) to my github page. 
+
+
+<img src="images/photo1.jpg" style="width:75%">
+
+
+
+
+[About me](about.html )
+
