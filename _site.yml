@@ -5,10 +5,13 @@ navbar:
   right:
     - text: "About"
       href: about.html
+    - text: "NYC Restaurants Inspection Analysis Dashboard"
+      href: NYC-Restaurants-Inspection-Analysis-Dashboard.html
     - icon: fa-envelope fa-lg
       href: mailto:<yl5219@cumc.columbia.edu>
     - icon: fa-github fa-lg
       href: https://github.com/yuqingliu6
+
 output:
   html_document:
     theme: flatly

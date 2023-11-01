@@ -1,0 +1,91 @@
+---
+title: "Dashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+    source: embed 
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(p8105.datasets)
+library(tidyverse)
+library(plotly)
+library(lubridate)
+```
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Chart A
+
+```{r}
+rest_inspec |> 
+  janitor::clean_names() |>
+  mutate(inspection_date <- as.Date(inspection_date)) |>
+  filter(inspection_date >= as.Date("2014-01-01"), 
+         score != "Missing", score >= 0, boro != "Missing") |>
+  mutate(year = year(inspection_date)) |>
+  mutate(grade = case_when(0 <= score & score <= 13 ~ "A",
+                         14 <= score & score <= 27 ~ "B",
+                         score >= 28 ~ "C")) |>
+  group_by(boro,grade, year) |>
+  summarise(Count = n()) |>
+  rename(Grade = grade) |>
+  plot_ly(x = ~boro, y = ~Count, color = ~Grade, 
+          frame = ~year, type = "bar", alpha = 0.7) |> 
+  layout(title = 
+           "Number of Restaurants by Inspection Grade Level in NYC Boroughs",
+         xaxis = list(title = "Borough"),
+         yaxis = list(title = "Count"),
+         font = list(size = 9))
+```
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Chart B
+
+```{r}
+rest_inspec |>
+  filter(violation_code %in% c("08A", "04L")) |>
+  mutate(Date = format(inspection_date, "%Y-%m")) |>
+  group_by(Date, violation_code) |>
+  summarise(count = n()) |>
+  ungroup() |>
+  mutate(violation_code = violation_code |> fct_relevel("08A", "04L")) |>
+  mutate(violation_code = recode(violation_code, "08A" = "Facility not vermin proof", "04L" = "Evidence of mice or live mice")) |>
+  plot_ly(x = ~Date, y = ~count,
+          color = ~violation_code, type = "scatter", 
+          mode = "lines", alpha = 0.5) |>
+  layout(title =  "Mice Related Violations over Time in NYC Restaurants",
+         xaxis = list(title = "Date"),
+         yaxis = list(title = "Count"),
+         font = list(size = 10)
+         )
+  
+```
+
+### Chart C
+
+```{r}
+  rest_inspec |>
+  filter(violation_code %in% c("08A", "04L")) |>
+  group_by(cuisine_description, violation_code) |>
+  summarise(count = n()) |>
+  ungroup() |>
+  filter(count > 700, cuisine_description != "Chicken") |>
+  mutate(violation_code = recode(violation_code,"04L" = "Evidence of mice or live mice", "08A" = "Facility not vermin proof")) |>
+  mutate(cuisine_description = fct_reorder(cuisine_description, count, .desc = FALSE)) |>
+  mutate(cuisine_description = recode(cuisine_description,"Latin (Cuban, Dominican, Puerto Rican, South & Central American)" = "Latin" )) |>
+ plot_ly(height = 240, 
+   y = ~cuisine_description, x = ~count,
+          color = ~violation_code, type = "bar", alpha = 0.7, orientation = 'h') |>
+  layout(title = "Top 12 Worst Cuisines with Mice-related Violations in NYC Boroughs",
+         xaxis = list(title = "Count"),
+         yaxis = list(title = "Cuisine"),
+         font = list(size = 9))
+  
+```
+
