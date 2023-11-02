@@ -64,7 +64,7 @@ rest_inspec |>
     filter(count > 300) |>
   mutate(cuisine_description = fct_reorder(cuisine_description, count)) |> 
   mutate(cuisine_description = recode(cuisine_description,"Latin (Cuban, Dominican, Puerto Rican, South & Central American)" = "Latin" )) |>
-  plot_ly(height = 300,
+  plot_ly(height = 340,
           y = ~count, color = ~cuisine_description, type = "box", colors = "viridis")|>
   layout(
     title = "Box Plot of High-Ranking Sanitation-Related Violation Counts by Cuisine Description in All Records from 2012 to 2017",
@@ -89,7 +89,7 @@ rest_inspec |>
   mutate(violation_code = recode(violation_code,"06D" = "Food contact surface not properly washed, rinsed and sanitized","06C" = "Food not protected from potential source of contamination", "06F" = "Wiping cloths soiled or not stored in sanitizing solution", "06A" = "Personal cleanliness inadequate", "06E"= "Sanitized equipment or utensil improperly used or stored.")) |>
   mutate(cuisine_description = fct_reorder(cuisine_description, count, .desc = FALSE)) |>
   mutate(cuisine_description = recode(cuisine_description,"Latin (Cuban, Dominican, Puerto Rican, South & Central American)" = "Latin" )) |>
- plot_ly(height = 300, 
+ plot_ly(height = 340, 
    y = ~cuisine_description, x = ~count,
           color = ~violation_code, type = "bar", alpha = 1, orientation = 'h') |>
   layout(title = "Top 12 Cuisine Types with Highest Sanitary Violation Numbers in New York City in All Records from 2012 to 2017",
