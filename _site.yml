@@ -5,7 +5,7 @@ navbar:
   right:
     - text: "About"
       href: about.html
-    - text: "Dashboard"
+    - text: "NYC Restaurant Inspections Dashboard"
       href: Dashboard.html
     - icon: fa-envelope fa-lg
       href: mailto:<yl5219@cumc.columbia.edu>
