@@ -23,6 +23,7 @@ I am a second-year student studying Master of Public Health at Columbia Universi
 I graduated from [Duke Kunshan University](https://www.dukekunshan.edu.cn/) with a Bachelor of Science Degree in Global Health and Biology. Now I am doing my MPH with a certificate in Epidemiology of Chronic Disease at [Columbia University](https://www.columbia.edu/) in the city.
 
 ![](images/photo1.jpg)
+
 <br>
 
 ### Career 
@@ -32,6 +33,7 @@ I graduated from [Duke Kunshan University](https://www.dukekunshan.edu.cn/) with
 I am currently a Intern at the [New York City Department of Health and Mental Hygiene](https://www.nyc.gov/site/doh/index.page) in New York, NY, working within the Department of Epidemiology, Bureau of Epidemiology Services, starting from July 2023. In this role, I have been engaged in impactful research focused on understanding the prevalence of food insecurity in New York City. I conducted a comprehensive validation analysis using Hunger Vital Sign as a new indicator to measure food insecurity, leveraging statistical tools like SAS and SUDAAN. My responsibilities also included evaluating the discordance and concordance of food insecurity status as determined by the Hunger Vital Sign and the gold standard, while exploring predictive variables, including the presence of multiple chronic diseases, through multinomial regression analysis. Moreover, I have applied machine learning techniques to predict food insecurity status, utilizing sociodemographic information and food support-related features. This experience has allowed me to contribute to the critical work of addressing food insecurity issues in our community and developing innovative approaches to tackle this public health challenge.
 
 ![](images/dohmh.jpeg)
+
 <br>
 
 ***Duke Kunshan University, Student Researcher, 2020-2022***
