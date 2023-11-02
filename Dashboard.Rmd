@@ -73,13 +73,13 @@ rest_inspec |>
 
 ```{r}
 rest_inspec |>
-  filter(violation_code %in% c("08A", "04L")) |>
+  filter(violation_code %in% c("06C", "06D", "06E", "06A","06F")) |>
   mutate(Date = format(inspection_date, "%Y-%m")) |>
   group_by(Date, violation_code) |>
   summarise(count = n()) |>
   ungroup() |>
-  mutate(violation_code = violation_code |> fct_relevel("08A", "04L")) |>
-  mutate(violation_code = recode(violation_code, "08A" = "Facility not vermin proof", "04L" = "Evidence of mice or live mice")) |>
+  mutate(violation_code = violation_code |> fct_relevel("06C", "06D", "06E", "06A","06F")) |>
+  mutate(violation_code = recode(violation_code, "06D" = "Food contact surface not properly washed, rinsed and sanitized","06C" = "Food not protected from potential source of contamination", "06F" = "Wiping cloths soiled or not stored in sanitizing solution", "06A" = "Personal cleanliness inadequate", "06E"= "Sanitized equipment or utensil improperly used or stored.")) |>
   plot_ly(x = ~Date, y = ~count,
           color = ~violation_code, type = "scatter", 
           mode = "lines", alpha = 1) |>
