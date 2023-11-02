@@ -2,7 +2,7 @@
 title: "NYC Restaurant Inspections Dashboard"
 output: 
   flexdashboard::flex_dashboard:
-    orientation: columns
+    orientation: rows
     vertical_layout: fill
     navbar:
       - { title: "Home", href: index.html, align: right }
@@ -21,12 +21,12 @@ library(plotly)
 library(lubridate)
 ```
 
-Column {data-width=650}
+Row 
 -----------------------------------------------------------------------
 
 ### Chart A
 
-```{r }
+```{r fig.width=60}
 rest_inspec |> 
   janitor::clean_names() |>
   mutate(inspection_date <- as.Date(inspection_date)) |>
@@ -45,16 +45,41 @@ rest_inspec |>
            "Number of Restaurants in Each Inspection Grade Level by Borough in New York City, 2014-2017",
          xaxis = list(title = "Borough"),
          yaxis = list(title = "Count"),
-         font = list(size = 10))
+         font = list(size = 8))
 
 ```
-{data-width=700}
------------------------------------------------------------------------
+
+
+
 
 ### Chart B
 
 
-```{r fig.width=80}
+```{r,fig.width=60}
+rest_inspec |>
+  filter(violation_code %in% c("06C", "06D", "06E", "06A", "06F")) |>
+  group_by(cuisine_description, violation_code) |>
+  summarise(count = n(), .groups = 'drop')|>
+  ungroup() |>
+    filter(count > 300) |>
+  mutate(cuisine_description = fct_reorder(cuisine_description, count)) |> 
+  mutate(cuisine_description = recode(cuisine_description,"Latin (Cuban, Dominican, Puerto Rican, South & Central American)" = "Latin" )) |>
+  plot_ly(height = 300,
+          y = ~count, color = ~cuisine_description, type = "box", colors = "viridis")|>
+  layout(
+    title = "Box Plot of High-Ranking Sanitation-Related Violation Counts by Cuisine Description in All Records from 2012 to 2017",
+    xaxis = list( tickangle = -45),
+    yaxis = list(title = "Count"),
+    font = list(size = 8)
+  )
+
+```
+
+
+Row 
+-----------------------------------------------------------------------
+### Chart C
+```{r fig.width=60}
 rest_inspec |>
   filter(violation_code %in% c("06C", "06D", "06E", "06A","06F")) |>
   group_by(cuisine_description, violation_code) |>
@@ -74,10 +99,9 @@ rest_inspec |>
   
 ```
 
+### Chart D
 
-### Chart C
-
-```{r ,fig.width=50}
+```{r ,fig.width=60}
 rest_inspec |>
   filter(violation_code %in% c("06C", "06D", "06E", "06A","06F")) |>
   mutate(Date = format(inspection_date, "%Y-%m")) |>
