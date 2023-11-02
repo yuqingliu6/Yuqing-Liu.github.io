@@ -27,4 +27,4 @@ Here is a [link](https://github.com/yuqingliu6) to my github page.
 [Here](about.html) are more information about me.
 
 ## Connect with me
-If you have any questions, please feel free to [email](yl5219@cumc.columbia.edu) me, connect with me through [LinkedIn](https://www.linkedin.com/feed/?trk=public_profile_not-found-log-in-join-link), or find me on [Github](https://github.com/yuqingliu6). 
+If you have any questions, please feel free to [email](yl5219@cumc.columbia.edu) me, connect with me through [LinkedIn](https://www.linkedin.com/in/yuqing-liu1/), or find me on [Github](https://github.com/yuqingliu6). 

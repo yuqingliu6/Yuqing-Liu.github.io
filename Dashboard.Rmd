@@ -4,7 +4,13 @@ output:
   flexdashboard::flex_dashboard:
     orientation: columns
     vertical_layout: fill
-    source: embed 
+    navbar:
+      - { title: "Home", href: index.html, align: right }
+      - { icon: fa-envelope, href: mailto:yl5219@cumc.columbia.edu, align: right }
+      - { icon: fa-github, href: "https://www.linkedin.com/in/yuqing-liu1/", align: right }
+      - { icon: fa-linkedin, href: "https://github.com/yuqingliu6", align: right }
+    source: embed
+    theme: flatly
 ---
 
 ```{r setup, include=FALSE}
@@ -20,17 +26,16 @@ Column {data-width=650}
 
 ### Chart A
 
-```{r}
-data("rest_inspec")
+```{r }
 rest_inspec |> 
   janitor::clean_names() |>
   mutate(inspection_date <- as.Date(inspection_date)) |>
   filter(inspection_date >= as.Date("2014-01-01"), 
          score != "Missing", score >= 0, boro != "Missing") |>
   mutate(year = year(inspection_date)) |>
-  mutate(grade = case_when(0 <= score & score <= 13 ~ "A",
-                         14 <= score & score <= 27 ~ "B",
-                         score >= 28 ~ "C")) |>
+  mutate(grade = case_when(0 <= score & score <= 13 ~ "Grade A",
+                         14 <= score & score <= 27 ~ "Grade B",
+                         score >= 28 ~ "Grade C")) |>
   group_by(boro,grade, year) |>
   summarise(Count = n()) |>
   rename(Grade = grade) |>
@@ -40,16 +45,16 @@ rest_inspec |>
            "Number of Restaurants in Each Inspection Grade Level by Borough in New York City, 2014-2017",
          xaxis = list(title = "Borough"),
          yaxis = list(title = "Count"),
-         font = list(size = 12))
-```
+         font = list(size = 10))
 
-Column {data-width=350}
+```
+{data-width=700}
 -----------------------------------------------------------------------
 
 ### Chart B
 
 
-```{r}
+```{r fig.width=80}
 rest_inspec |>
   filter(violation_code %in% c("06C", "06D", "06E", "06A","06F")) |>
   group_by(cuisine_description, violation_code) |>
@@ -62,16 +67,17 @@ rest_inspec |>
  plot_ly(height = 300, 
    y = ~cuisine_description, x = ~count,
           color = ~violation_code, type = "bar", alpha = 1, orientation = 'h') |>
-  layout(title = "Top 12 Cuisine Types with highest Sanitary Violation Numbers in New York City",
+  layout(title = "Top 12 Cuisine Types with Highest Sanitary Violation Numbers in New York City in All Records from 2012 to 2017",
          xaxis = list(title = "Count"),
          yaxis = list(title = "Cuisine"),
          font = list(size = 8))
   
 ```
 
+
 ### Chart C
 
-```{r}
+```{r ,fig.width=50}
 rest_inspec |>
   filter(violation_code %in% c("06C", "06D", "06E", "06A","06F")) |>
   mutate(Date = format(inspection_date, "%Y-%m")) |>
@@ -83,10 +89,10 @@ rest_inspec |>
   plot_ly(x = ~Date, y = ~count,
           color = ~violation_code, type = "scatter", 
           mode = "lines", alpha = 1) |>
-  layout(title =  "Mice Related Violations over Time in NYC Restaurants",
+  layout(title =  "Sanitory Violations over Time in New York's Restaurants, 2012-2017",
          xaxis = list(title = "Date"),
          yaxis = list(title = "Count"),
-         font = list(size = 10)
+         font = list(size = 8)
          )
   
 ```
